@@ -7,8 +7,8 @@ return new \Phalcon\Config([
         'adapter'     => 'Mysql',
         'host'        => 'localhost',
         'username'    => 'root',
-        'password'    => 'vfathanhtrung',
-        'dbname'      => 'demo',
+        'password'    => 'root',
+        'dbname'      => 'demo-phalcon',
         // 'dbname'      => 'phalcon_security',
         'charset'     => 'utf8',
     ],
@@ -21,7 +21,7 @@ return new \Phalcon\Config([
         'libraryDir'     => APP_PATH . '/app/library/',
         'cacheDir'       => APP_PATH . '/app/cache/',
         'formsDir'        => APP_PATH . '/app/forms/',
-        'baseUri'        => '/demo/',
+        'baseUri'        => '/demo-phalcon/',
         // 'cryptSalt'      => 'eEAfR|_&G&f,+vU]:jFr!!A&+71w1Ms9~8_4L!<@[N@DyaIP_2My|:+.u>/6m,$D'
     ]
 ]);

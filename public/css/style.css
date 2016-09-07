@@ -9,3 +9,12 @@ body {
 .hidden {
   display: none;
 }
+
+#map{
+	height: 400px;
+	width: 100%; 
+}
+.wrap-content{
+	height: 400px;
+	width: 100%;
+}

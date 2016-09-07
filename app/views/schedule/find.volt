@@ -55,3 +55,8 @@
   <tbody id="records_body">
   </tbody>
 </table>
+
+<div class="map-container">
+  {% include "partials/modal_map.volt" %}
+</div>
+

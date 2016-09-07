@@ -19,7 +19,13 @@
     <tbody>
         <tr>
             <td>{{ schedule.id }}</td>
-            <td>{{ schedule.address_start }}</td>
+            <td>
+            {% for address_start in schedule.address_start %}
+
+            {{ address_start }}
+
+            {% endfor %}
+            </td>
             <td>{{ schedule.address_end }}</td>
             <td><span class="label label-success">Success</span></td>
         </tr>

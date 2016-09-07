@@ -35,13 +35,58 @@ var SignUp = {
     }
 }
 
+var actionMap = {
+    initMap: function(ori,des){
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 5,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        directionsDisplay.setMap(map);
+
+        var onChangeHandler = function() {
+          actionMap.calculateAndDisplayRoute(directionsService, directionsDisplay,ori,des);
+        };
+        onChangeHandler();
+    },
+
+    calculateAndDisplayRoute: function(directionsService, directionsDisplay,ori,des){
+         directionsService.route({
+          origin: ori,
+          destination: des,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+    },
+
+    showMap: function(){
+        $(".add_request").click(function(){
+            var address_start = $(this).attr('data-address-start');
+            var address_end = $(this).attr('data-address-end');
+            
+            $('#map').hide();
+
+            setTimeout(function() {
+                 $('#map').show();
+                 actionMap.initMap(address_start,address_end);
+            }, 1000);
+        });
+    }
+}
+
 function formSuccess(msg) {
     $("#message").html('<strong>'+ msg +'</strong>');
     $(".alert").removeClass("hidden");
 }
 
 $(document).ready(function () {
-
+      
     var geocoder = new google.maps.Geocoder();
 
     $("#address_start").focusout(function() {
@@ -100,6 +145,8 @@ $(document).ready(function () {
 
     });
 
+    
+
     $("#scheduleForm").submit(function (e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -122,7 +169,7 @@ $(document).ready(function () {
             // data.address_end = $("#address_end").val();
             data.radius = $("#radius").val();
 
-            if ($("#scheduleForm").attr("action") == "/demo/schedule/add") {
+            if ($("#scheduleForm").attr("action") == "/demo-phalcon/schedule/add") {
                 // alert(1);
                 $.ajax({
                     type: frm.attr('method'),
@@ -135,7 +182,7 @@ $(document).ready(function () {
                     }
                 });
             }
-            else if ($("#scheduleForm").attr("action") == "/demo/schedule/find") {
+            else if ($("#scheduleForm").attr("action") == "/demo-phalcon/schedule/find") {
                 // alert(2);
                 $.ajax({
                     type: frm.attr('method'),
@@ -150,15 +197,19 @@ $(document).ready(function () {
                             $("#records_body").text('');
 
                             $.each (data.schedules, function(i, item) {
+                                console.log(item);
                                 var $str = $('<tr>').append(
                                     $('<td>').text(item.id),
                                     $('<td>').text(item.address_start),
                                     $('<td>').text(item.address_end),
-                                    $('<td>').html('<button id="add_request" class="btn btn-primary" data-user-id="'+ item.user_id +'">Add Request</button>')
+                                    $('<td>').html('<button id="add_request" class="btn btn-primary add_request" data-address-end="'+ item.address_end+'" data-address-start="'+ item.address_start+'" data-user-id="'+ item.user_id +'" data-toggle="modal" data-target="#myModal">Show Route</button>')
                                 )
                                 // console.log($str.wrap('<p>').html());
                                 $str.appendTo("#records_body");
                             });
+
+                            actionMap.showMap();
+
                             var radius = $("#radius option:selected").text();
                             $("#info").html("<h3>Your schedule near by you: "+ radius +"</h3>").show();
                             $(".table").show();
