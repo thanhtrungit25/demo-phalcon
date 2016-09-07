@@ -169,7 +169,7 @@ $(document).ready(function () {
             // data.address_end = $("#address_end").val();
             data.radius = $("#radius").val();
 
-            if ($("#scheduleForm").attr("action") == "/demo-phalcon/schedule/add") {
+            if ($("#scheduleForm").attr("action") == "/demo/schedule/add") {
                 // alert(1);
                 $.ajax({
                     type: frm.attr('method'),
@@ -182,7 +182,7 @@ $(document).ready(function () {
                     }
                 });
             }
-            else if ($("#scheduleForm").attr("action") == "/demo-phalcon/schedule/find") {
+            else if ($("#scheduleForm").attr("action") == "/demo/schedule/find") {
                 // alert(2);
                 $.ajax({
                     type: frm.attr('method'),

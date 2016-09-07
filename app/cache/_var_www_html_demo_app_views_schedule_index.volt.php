@@ -19,7 +19,13 @@
     <tbody>
         <tr>
             <td><?= $schedule->id ?></td>
-            <td><?= $schedule->address_start ?></td>
+            <td>
+            <?php foreach ($schedule->address_start as $address_start) { ?>
+
+            <?= $address_start ?>
+
+            <?php } ?>
+            </td>
             <td><?= $schedule->address_end ?></td>
             <td><span class="label label-success">Success</span></td>
         </tr>
