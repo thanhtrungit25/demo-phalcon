@@ -136,7 +136,7 @@ class ScheduleController extends ControllerBase
           "radius" => $r
         );
         $schedules = $this->modelsManager->executeQuery($phql, $params);
-        // echo count($schedules);die;
+        // echo var_dump($params);die;
 
         if (count($schedules) > 0) {
           $response_array['status'] = 'success';
